@@ -1,0 +1,276 @@
+\documentclass[10pt]{beamer}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage[UTF8,noindent]{ctex}
+
+
+
+%\usepackage{beamerthemeshadow}  % 使用shadow风格
+\usetheme{CambridgeUS}
+\usecolortheme{seagull}
+\usepackage{color}
+
+\usefonttheme[onlylarge]{structuresmallcapsserif}
+\usefonttheme[onlysmall]{structurebold}
+\setbeamerfont{title}{shape=\itshape,family=\rmfamily}
+\setbeamercolor{title}{fg=black!80!black,bg=red!20!white}
+
+\setbeamercolor{background canvas}{bg=}
+%\logo{\includegraphics[height=0.5cm]{fig4}}
+%\setbeamertemplate{headline}
+%{%
+ %\hfill\makebox(-2,2)[rt]{\insertlogo}%
+%}
+%\setbeamertemplate{sidebar right}
+%{%
+ % \vfill%
+  %\llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+  %\vskip2pt%
+  %}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+    \renewcommand\footnoterule{\moveleft1cm\vbox{\textcolor{red}{\rule{\paperwidth}{1pt}}\vskip 1mm}}
+
+
+\usepackage{wallpaper}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[毕业设计（论文）答辩]{\huge 毕业设计（论文）答辩}
+\subtitle{\large One-shot Learning中的方法和应用探索}
+\author[汪径慈]{\newline\newline 姓名：汪径慈\newline 班级：信计41\newline 指导老师：Supervisor}
+\institute[信息与计算科学]
+{
+	\newline\newline 西安交通大学数学与统计学院
+}
+
+\date{2018-06-12}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\maketitle
+\LLCornerWallPaper{1.0}{logo.png} % Customize the logo of your institution
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Outline}
+\begin{frame}{Outline}
+\tableofcontents[sections={2-},hideallsubsections]
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{选题背景和意义}
+\subsection{课题背景}
+
+% ----------------- NEW FRAME ---------------------------
+
+
+\begin{frame}{选题背景}
+\begin{block}{传统机器学习}
+\begin{itemize}
+	\item Data hungry; hard to learn new concepts from little data
+	\item High computing complexity
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}{One-shot Learning}
+\begin{block}{One-shot Learning}
+\begin{itemize}
+	\item One-shot Learning研究的是如何从少量样本中学习\\
+	 - 模型需要在面对训练过程中不曾出现的类别标签，仅借助少量样本，能够对其进行分类
+\end{itemize}
+
+\end{block}
+
+
+\end{frame}
+
+%------------------------------
+\subsection{相关工作}
+
+% ----------------- NEW FRAME ---------------------------
+
+
+\begin{frame}{Hierarchical Bayesian Programming Learning\footnote{Human-level concept learning through probabilistic program induction (Brenden Lake, Ruslan Salakhutdinov, Joshua Tenenbaum)}}
+
+\end{frame}
+
+
+% ----------------- NEW FRAME ---------------------------
+
+
+\begin{frame}{Memory-augmented Neural Networks\footnote{One-shot Learning with Memory-augmented Neural Networks (Adam Santoro et al.)}}
+\begin{block}{}
+- 基于Neural Turing Machine的思想，通过external memory进行短时记忆和缓慢权值更新进行长时记忆，快速地预测只出现过一次的数据
+\end{block}
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{问题研究}
+\begin{frame}{Matching Networks\footnote{Matching Network for One-shot Learning (Oriol Vinyals et al.)}}
+\begin{block}{Motivation}
+It's important for one-shot learning to attain rapid learning from new examples while keeping an ability for common examples
+\end{block}
+\begin{itemize}
+	\item Simple parametric models such as deep classifiers need to be optimized to treat with new examples
+	\item Non-parametric models such as k-nearest neighbor don't require optimization but performance depends on the chosen metric
+	\end{itemize}
+\begin{block}{}
+\textit{It could be efficient to train an end-to-end nearest neighbor based classifier}
+\end{block}
+%\begin{block}{Matching Networks\footnote{Matching Network for One-shot Learning (Oriol Vinyals et al.)}}
+%目前，one-shot learning的相关工作已经非常丰富，如通过学习孪生神经网络（siamese neural network）、通过模拟生成数据等方法达到one-shot learning的目的。本次研究主要关注matching networks实现单个或少量样本的学习，这种方法糅合了比较热门的相关领域，如元学习（meta-learning）\footnote{Neural Turing Machines(A Graves et al.)}、注意力机制（attention mechanism）\footnote{Neural Machine Translation by jointly learning to align and translate(D. Bahdanau et al.)}等，并在模型中同时结合了参数模型的泛化能力以及非参数模型的快速学习能力,使得模型在source domain中训练过后不用经过fine-turing即可直接进入对新类别的one-shot learning实现。
+%end{block}
+
+
+\end{frame}
+
+
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{Matching Networks}
+\begin{itemize}
+	\item 模型
+	\begin{itemize}
+		\item Matching Nets: attention \& memory $\rightarrow$ rapid learning
+	\end{itemize}
+	\bigskip
+	\item 训练过程
+	\begin{itemize}
+		\item 每个类别只给出少量样本
+		\item minibatch to minibatch
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%----------------------------------
+
+\section{研究思路与方法}
+\subsection{理论基础}
+
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{理论基础（Attention Mechanism）}{Sequence-to-sequence with Attention\footnote{Neural Machine Translation by Jointly Learning to Align and Translate (Dzmitry Bahdanau et al.)}}
+\begin{itemize}
+\item 将输入序列编码成向量的序列而不是固定长度的语义向量
+\item 每一步输出时有选择性地关注向量序列中与被预测部分最相关的子集
+\end{itemize}
+
+
+\end{frame}
+
+
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{理论基础（Attention Mechanism）}{Sequence-to-sequence for Sets\footnote{Order Matters: Sequence to Sequence for Sets (Vinyals et al.)}}
+
+
+\end{frame}
+
+%-----------------------
+\subsection{Matching Networks}
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{模型建立}
+
+\end{frame}
+
+
+% ----------------- NEW FRAME ---------------------------
+
+
+\begin{frame}{训练策略}
+
+\end{frame}
+
+
+%----------------------------
+\subsection{数值实验}
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{数据集}
+
+
+\end{frame}
+
+%-------------------
+
+\section{结果展示}
+\subsection{数值实验}
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{数值实验 1}
+\begin{itemize}
+	\item 数据集：Omniglot (training：1200；validation：211；test：211)
+	\item Platform: TensorFlow
+	\item Task: 5-Way 1-Shot
+\end{itemize}
+
+	\begin{table}
+	\centering
+	\begin{tabular}{cccc}
+	\hline
+		Model & Metric & Fine Tune & Acc \\
+	\hline
+		Matching Nets & Cosine & N & 96.2 \\
+	\hline
+	\end{tabular}
+\end{table}
+	
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{结论与总结}
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}{结论分析}
+\begin{itemize}
+	\item
+	\item 
+	\item 
+	\item 
+	\item 
+	\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%% Thank you page %%%%%%%%%%%%%%%%%
+\section*{Thanks}
+
+% ----------------- NEW FRAME ---------------------------
+
+\begin{frame}
+  \begin{block}{}
+  \centering
+  \Huge \textcolor[rgb]{0.5,0.5,0.2}{谢\  谢！}
+  \end{block}
+\end{frame}
+
+
+
+\end{document}
