@@ -18,8 +18,8 @@
 
 ## What it looks like
 
-![Cover](cover)
+![Cover](https://raw.githubusercontent.com/Jingciii/PPT_temp_XJTU/master/cover.png)
 
 
-## Reference
+
 
